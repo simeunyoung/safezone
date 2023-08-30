@@ -202,6 +202,7 @@ input[type="search"]{width:100%;}
 	left: 0;
 	z-index: 2;
 	height:100%;
+	background:#fff;
 	box-shadow: -10px 0px 15px rgba(0, 0, 0, 0.7);
 }
 .menu-btn{cursor:pointer;}
@@ -217,7 +218,7 @@ input[type="search"]{width:100%;}
 
 .tab button{color:#fff;}
 
-.sidebar-content{height:100%;}
+.sidebar-content{}
 .tab-content{height:100%;background:#fff;}
 
 

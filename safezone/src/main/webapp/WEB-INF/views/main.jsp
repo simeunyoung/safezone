@@ -65,7 +65,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<!-- side-bar -->
-			<div class="side-bar col-md-3 col-lg-3" style="background:pink">
+			<div class="side-bar col-md-3 col-lg-3">
 				
 				<div class="sidebar-top">
 					<div class="sidebar-top-menu mb-3">
