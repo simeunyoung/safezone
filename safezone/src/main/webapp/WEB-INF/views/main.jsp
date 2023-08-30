@@ -101,7 +101,7 @@
 					</div>
 				</div>
 				<div class="sidebar-content">
-					<button class="sidebar-button"><i class="fa-solid fa-chevron-left" style="color: #c2c2c2;"></i></button>
+					
 					<div class="tab-content" id="pills-tabContent">
 					  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">.검색.</div>
 					  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">.길찾기.</div>
@@ -109,7 +109,7 @@
 					  <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">문의..</div>
 					</div>
 				</div>
-				
+				<button class="sidebar-button"><i class="fa-solid fa-chevron-left" style="color: #c2c2c2;"></i></button>
 			</div>
 
 			<main class="col-md-12 col-lg-12">
@@ -159,6 +159,20 @@
 		    var resultDiv = document.getElementById('result'); 
 		    resultDiv.innerHTML = message;
 		    
+		});
+	</script>
+	<script>
+		const sidebar = document.querySelector('.side-bar');
+		const sidebar1 = document.querySelector('.sidebar-top');
+		const sidebar2 = document.querySelector('.sidebar-content');
+		const sidebarButton = document.querySelector('.sidebar-button');
+	
+		sidebarButton.addEventListener('click', () => {
+		  // 1920px 기준이라서 확인 필요
+		  const isOpen = sidebar.style.width === '25%';
+		  sidebar.style.width = isOpen ? '0%' : '25%';
+		  sidebar1.style.display = isOpen ? 'none' : 'block';
+		  sidebar2.style.display = isOpen ? 'none' : 'block';
 		});
 	</script>
 </body>
