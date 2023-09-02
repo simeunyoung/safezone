@@ -47,4 +47,9 @@
 	<context:component-scan base-package="safezone.project.service"/>
 	<context:component-scan base-package="safezone.project.aop"/>
 	<aop:aspectj-autoproxy/>
+	
+	<!-- api key -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations" value="classpath:/apikeys.properties" />
+	</bean>
 </beans>
