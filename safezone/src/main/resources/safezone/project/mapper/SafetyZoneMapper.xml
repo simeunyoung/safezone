@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+  
+<mapper namespace="safezone.project.mapper.SafetyZoneMapper">
+	<insert id="insertSafetyZone">
+		insert into safetyzone values(#{OBJT_ID},#{POLICE},#{POLCSTTN},#{FCLTY_TY},#{FCLTY_CD},#{FCLTY_NM},#{ADRES},#{RN_ADRES},#{TELNO},#{CTPRVN_CD},#{SGG_CD},#{X},#{Y})
+	</insert>
+</mapper>
