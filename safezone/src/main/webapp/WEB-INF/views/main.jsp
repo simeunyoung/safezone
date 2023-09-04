@@ -65,9 +65,10 @@
 	<div class="container-fluid">
 		<div class="row">
 			<!-- side-bar -->
-			<div class="side-bar col-md-3 col-lg-3">
+			<div class="side-bar col-md-12 col-lg-3">
 				
 				<div class="sidebar-top">
+					<button class="sidebar-button"><i class="fa-solid fa-chevron-left" style="color: #c2c2c2;"></i></button>
 					<div class="sidebar-top-menu mb-3">
 						<div class="d-flex">
 							<div class="menu-btn"><i class="fa-solid fa-bars fa-lg" style="color: #ffffff;"></i></div>
@@ -109,7 +110,7 @@
 					  <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">문의..</div>
 					</div>
 				</div>
-				<button class="sidebar-button"><i class="fa-solid fa-chevron-left" style="color: #c2c2c2;"></i></button>
+				
 			</div>
 
 			<main class="col-md-12 col-lg-12">
@@ -169,8 +170,8 @@
 	
 		sidebarButton.addEventListener('click', () => {
 		  // 1920px 기준이라서 확인 필요
-		  const isOpen = sidebar.style.width === '25%';
-		  sidebar.style.width = isOpen ? '0%' : '25%';
+		  const isOpen = sidebar.style.width === '100%';
+		  sidebar.style.width = isOpen ? '0%' : '100%';
 		  sidebar1.style.display = isOpen ? 'none' : 'block';
 		  sidebar2.style.display = isOpen ? 'none' : 'block';
 		});
