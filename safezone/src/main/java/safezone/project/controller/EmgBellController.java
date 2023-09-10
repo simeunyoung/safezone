@@ -15,7 +15,6 @@ public class EmgBellController {
 	
 	@RequestMapping("/main")
 	public String mainMap() {
-		service.bellApi();
 		return "/emgMap/emgMap";
 	}
 	

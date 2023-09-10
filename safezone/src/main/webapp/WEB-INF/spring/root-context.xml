@@ -23,8 +23,8 @@
 	
 	
 	
-		<property name="username" value="class01" />
-		<property name="password" value="class" />
+		<property name="username" value="c##safezone" />
+		<property name="password" value="1234" />
 	</bean>
 	
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
