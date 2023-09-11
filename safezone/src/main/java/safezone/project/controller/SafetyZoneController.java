@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -93,6 +94,7 @@ public class SafetyZoneController {
                     System.out.println("Y: " + Y);
                     System.out.println("--------------------");
                     
+                    //dto에 저장
                     SafetyZoneDTO safetyZoneDTO = new SafetyZoneDTO();
                     safetyZoneDTO.setOBJT_ID(OBJT_ID);
                     safetyZoneDTO.setPOLICE(POLICE);
@@ -114,5 +116,37 @@ public class SafetyZoneController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    @RequestMapping("a")
+    public void a() {
+    	 try {
+    	        // URL 연결 설정
+    		 	String API_SERVICE_KEY = "EnK87IvfGL76L5RedRI0tt0G0S78JfDdMtOuDsR6UBFaqbVEIaPtSPXWiT8fjOFrWokmmvcZ9CQJW+/X6IojIA==";
+    		 	//URLDecoder.decode(API_SERVICE_KEY, "UTF-8");
+    	        String apiUrl = "http://api.data.go.kr/openapi/tn_pubr_public_female_safety_prtchouse_api?serviceKey="+API_SERVICE_KEY+"&pageNo=1&numOfRows=100&type=xml";
+    	        URL url = new URL(apiUrl);
+    	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+    	        // 연결 설정
+    	        connection.setRequestMethod("GET");
+    	        connection.setRequestProperty("Accept", "application/xml");
+
+    	        // XML 데이터 읽기
+    	        InputStream inputStream = connection.getInputStream();
+    	        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+    	        BufferedReader reader = new BufferedReader(inputStreamReader);
+    	        StringBuilder xmlData = new StringBuilder();
+    	        String line;
+    	        while ((line = reader.readLine()) != null) {
+    	            xmlData.append(line);
+    	        }
+    	        reader.close();
+
+    	        // XML 데이터 그대로 출력
+    	        System.out.println(xmlData.toString());
+    	    } catch (Exception e) {
+    	        e.printStackTrace();
+    	    }
     }
 }
