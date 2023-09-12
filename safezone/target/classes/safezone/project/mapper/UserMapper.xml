@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+  
+<mapper namespace="safezone.project.mapper.UserMapper">
+	<insert id="insertUser">
+		insert into sz_user(email,pw,name,birth,gender,tel,emg_tel) values(#{email},#{pw},#{name},#{birth},#{gender},#{tel},#{emg_tel})
+	</insert>
+	
+	<select id="checkUser" resultType="String">
+		select pw from sz_user where email = #{email}
+	</select>
+</mapper>
