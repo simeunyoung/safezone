@@ -23,6 +23,7 @@
 <!-- 폰트어썸 아이콘 -->
 <script src="https://kit.fontawesome.com/f507061817.js" crossorigin="anonymous"></script>
 <link href="/safezone/resources/css/style.css" rel="stylesheet">
+
 <style>
 
 </style>
@@ -68,6 +69,7 @@
 			<div class="side-bar col-md-12 col-lg-3">
 				
 				<div class="sidebar-top">
+		
 					<button class="sidebar-button"><i class="fa-solid fa-chevron-left" style="color: #c2c2c2;"></i></button>
 					<div class="sidebar-top-menu mb-3">
 						<div class="d-flex">
@@ -126,6 +128,7 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 		crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
@@ -161,6 +164,156 @@
 		    resultDiv.innerHTML = message;
 		    
 		});
+		var lat;
+		var lon;
+		// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+		if (navigator.geolocation) {
+		    
+		    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+		    navigator.geolocation.getCurrentPosition(function(position) {
+		        
+		        	lat = position.coords.latitude, // 위도
+		            lon = position.coords.longitude; // 경도
+		        	console.log("안에 위도"+lat);
+		        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+		            message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+		        
+		        // 마커와 인포윈도우를 표시합니다
+		        displayMarker(locPosition, message);
+		            
+		      });
+		    
+		} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+		    
+		    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
+		        message = 'geolocation을 사용할수 없어요..'
+		        
+		    displayMarker(locPosition, message);
+		}
+		console.log(lat);
+
+		// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+		function displayMarker(locPosition, message) {
+
+		    // 마커를 생성합니다
+		    var marker = new kakao.maps.Marker({  
+		        map: map, 
+		        position: locPosition
+		    }); 
+		    
+		    var iwContent = message, // 인포윈도우에 표시할 내용
+		        iwRemoveable = true;
+
+		    // 인포윈도우를 생성합니다
+		    var infowindow = new kakao.maps.InfoWindow({
+		        content : iwContent,
+		        removable : iwRemoveable
+		    });
+		    
+		    // 인포윈도우를 마커위에 표시합니다 
+		    infowindow.open(map, marker);
+		    
+		    // 지도 중심좌표를 접속위치로 변경합니다
+		    map.setCenter(locPosition);      
+		}    
+
+		 $(".position-btn").on("click", () => {
+             console.log("ajax"+typeof lat);
+             
+			 $.ajax({
+	                url: '/safezone/haversine', // 컨트롤러의 엔드포인트 URL로 변경
+	                method: 'POST', // HTTP 메서드 (GET, POST 등) 선택
+	                data: {
+	                    lat: lat,
+	                    lon: lon
+	                },
+	                success: function (list) {
+	                	var positions = [];
+	                	for(var i = 0; i < list.length; i++){
+	                		positions.push({
+	                			content: '<div>' + list[i].storNm + ' ' + '<a href="https://map.kakao.com/link/to/' + list[i].storNm + ',' + list[i].latitude + ',' + list[i].longitude + '?sname='+ lat +','+ lon+'" style="color: blue" target="_blank">길찾기</a></div>',
+                				latlng: new kakao.maps.LatLng(list[i].latitude, list[i].longitude),
+                				iwRemoveable: true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+	                		});
+	                	}
+	                	
+	                	// 마커 이미지의 이미지 주소입니다
+	                    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+
+	                    // 마커 이미지의 이미지 크기 입니다
+	                    var imageSize = new kakao.maps.Size(24, 35); 
+
+	                    // 마커를 생성하고 지도에 표시합니다
+	                    for (var i = 0; i < positions.length; i++) {
+	                        // 마커 이미지를 생성합니다
+	                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+	                        // 마커를 생성합니다
+	                        var marker = new kakao.maps.Marker({
+	                            map: map, // 마커를 표시할 지도
+	                            position: positions[i].latlng, // 마커를 표시할 위치
+	                            clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+	                            image: markerImage // 마커 이미지
+	                        });
+	                     // 마커에 표시할 인포윈도우를 생성합니다 
+	                        var infowindow = new kakao.maps.InfoWindow({
+	                            content: positions[i].content, // 인포윈도우에 표시할 내용
+	                            position: positions[i].latlng,
+	                            removable : positions[i].iwRemoveable
+	                        });
+	                     // 마커에 클릭이벤트를 등록합니다
+		                    kakao.maps.event.addListener(marker, 'click', makeOpenListener(map, marker, infowindow));
+
+	                        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+	                        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+	                        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+// 	                        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+// 	                        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+	                    }
+	                 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+	                    function makeOpenListener(map, marker, infowindow) {
+	                        return function() {
+	                            infowindow.open(map, marker);
+	                        };
+	                    }
+
+	                    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+	                    function makeCloseListener(infowindow) {
+	                        return function() {
+	                            infowindow.close();
+	                        };
+	                    }
+	                	
+	                 
+	                    // 성공적으로 서버로 데이터를 전송한 경우 실행할 코드
+	                    alert('위도와 경도를 서버로 전송했습니다.');
+	                },
+	                error: function (error) {
+	                    // 오류가 발생한 경우 실행할 코드
+	                    console.error('데이터 전송 중 오류가 발생했습니다.');
+	                }
+	            });
+		 });
+			
+	           
+	    
+
+	        // HTML5의 geolocation을 사용하여 위치 정보 얻어오는 코드 (이전 코드와 동일)
+
+	        // 위치 정보를 서버로 전송
+// 	        function sendLocation() {
+// 	            if (navigator.geolocation) {
+// 	                navigator.geolocation.getCurrentPosition(function (position) {
+// 	                    var lat = position.coords.latitude;
+// 	                    var lon = position.coords.longitude;
+// 	                    sendLocationToServer(lat, lon); // 서버로 위도와 경도 전송
+// 	                });
+// 	            } else {
+// 	                console.error('HTML5의 GeoLocation을 사용할 수 없습니다.');
+// 	            }
+// 	        }
+
+	      
 	</script>
 	<script>
 		const sidebar = document.querySelector('.side-bar');
