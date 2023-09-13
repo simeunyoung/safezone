@@ -4,29 +4,29 @@ import lombok.Data;
 
 @Data
 public class EmgbellDTO {
-	private int objtId;
-    private String fcltyTy;
-    private String mngInst;
-    private String insType;
-    private String insDetail;
-    private String rnAdres;
+	private int objt_id;
+    private String fclty_ty;
+    private String mng_inst;
+    private String ins_type;
+    private String ins_detail;
+    private String rn_adres;
     private String adres;
     private double lat;
     private double lon;
-    private String flagPolL;
-    private String flagSecL;
-    private String flagMngL;
+    private String flag_pol_l;
+    private String flag_sec_l;
+    private String flag_mng_l;
     private String addition;
-    private int insYear;
-    private String lastInspd;
-    private String lastInspt;
-    private String mngTel;
-    private String flagServi;
-    private int ctprvnCd;
-    private int sggCd;
-    private int emdCd;
+    private int ins_year;
+    private String last_inspd;
+    private String last_inspt;
+    private String mng_tel;
+    private String flag_servi;
+    private int ctprvn_cd;
+    private int sgg_cd;
+    private int emd_cd;
     private double x;
     private double y;
-    private int dataTy;
-    private String emgbellCn;
+    private int data_ty;
+    private String emgbell_cn;
 }
