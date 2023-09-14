@@ -15,6 +15,6 @@ public class SafetyZoneDTO {
     private String TELNO; //전화번호
     private int CTPRVN_CD; //시도코드
     private int SGG_CD; //시군구코드
-    private String X; //위도
-    private String Y; //경도
+    private String LAT; //위도
+    private String LON; //경도
 }

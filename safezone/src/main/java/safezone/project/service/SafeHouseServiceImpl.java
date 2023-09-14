@@ -35,6 +35,9 @@ public class SafeHouseServiceImpl implements SafeHouseService{
 		double minLng = longitude - (radius / earthRadius) * (180 / Math.PI) / Math.cos(latitude * Math.PI / 180);
 		double maxLng = longitude + (radius / earthRadius) * (180 / Math.PI) / Math.cos(latitude * Math.PI / 180);
 		
+		System.out.println(latitude+"//"+longitude);
+		System.out.println(minLat+"//"+maxLat+"//"+minLng+"//"+maxLng);
+		
 	  return mapper.getHouseList(minLat, maxLat, minLng, maxLng);
 	};
 
