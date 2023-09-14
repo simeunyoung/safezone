@@ -29,4 +29,5 @@ public class EmgbellDTO {
     private double y;
     private int data_ty;
     private String emgbell_cn;
+    private double distance;
 }

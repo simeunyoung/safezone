@@ -14,10 +14,19 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" 
 	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 	
+	<!-- 폰트어썸 아이콘 -->
+	<script src="https://kit.fontawesome.com/f507061817.js" crossorigin="anonymous"></script>
+	<link href="/safezone/resources/css/style.css" rel="stylesheet">
+	
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=00c5646bb9ebe4eed88e3ec456e4c0ea"></script>
 </head>
 <body>
-	<div id="map" style="width:500px;height:400px;"></div>
+	<main class="col-md-12 col-lg-12">
+		<div class="map-wrap">
+			<button class="position-btn"><i class="fa-solid fa-crosshairs" style="color: #444;"></i></button>
+			<div id="map" style="width:500px;height:400px;"></div>
+		</div>
+	</main>
 	
 	<script src="/safezone/resources/js/emgBellMap.js?ver=3"></script>
 	<div id="bellList">

@@ -37,6 +37,8 @@ function createMap(lat, lon) {
 
     // 전역 변수로 선언한 map에 지도를 생성합니다
     map = new kakao.maps.Map(mapContainer, mapOption);
+    
+    
 
     // 지도에 확대 축소 컨트롤을 생성한다
     var zoomControl = new kakao.maps.ZoomControl();
@@ -60,11 +62,9 @@ function sendLocation(lat, lon) {
         data: JSON.stringify(data), // 데이터를 JSON 문자열로 변환
         contentType: "application/json", // 요청의 Content-Type 설정
         //dataType: "json",
-        success: function(data) {
+        success: function(bellList) {
             alert('전달' + lat);
-            var bellList = data.bellList;
-            alert(bellList);
-            $('#bellList').text(data);
+            $('#bellList').text(bellList);
         },
         error: function(xhr, status, error) {
             alert('에러 코드: ' + xhr.status + ' - ' + error);
