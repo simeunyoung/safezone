@@ -97,6 +97,7 @@
 	                },
 	                success: function (data) {
 	                   var list = data.SafeHouseDTO;
+	                   var bellList = data.EmgbellDTO;
 	                   var distance = data.distance * 1000;               
 	                	var positions = [];
 	                	// 주어진 객체로 원을 생성한다.
@@ -146,6 +147,52 @@
                 	        container.appendChild(listItem);
 	                	}
 	                	
+	                	var bellPositions = [];
+	                	for (var i = 0; i < bellList.length; i++) {
+						    bellPositions.push({
+						        content: '<div>' + bellList[i].ins_detail+' '+bellList[i].fclty_ty + ' ' + '<a href="https://map.kakao.com/link/to/' + bellList[i].ins_detail + ',' + bellList[i].lat + ',' + bellList[i].lon + '?sname='+ lat +','+ lon+'" style="color: blue" target="_blank">길찾기</a></div>',
+						        latlng: new kakao.maps.LatLng(bellList[i].lat, bellList[i].lon),
+						        iwRemoveable: true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+						    });
+						
+						    var bellListItem = document.createElement('div'); // 새로운 <div> 요소 생성
+						    bellListItem.className = 'list-item'; // 클래스 설정
+						
+						    var bellTitleDiv = document.createElement('div'); // 제목을 담을 <div> 요소 생성
+						    bellTitleDiv.className = 'list-title';
+						    bellTitleDiv.textContent = bellList[i].ins_detail+' '+bellList[i].fclty_ty; // 리스트 항목의 ins_detail과 fclty_ty 설정
+						
+						    var vellDisDiv = document.createElement('div'); // 거리를 담을 <div> 요소 생성
+						    vellDisDiv.className = 'list-dis';
+						    var bellDis = parseFloat(bellList[i].distance);
+						    var bellDistanceNum = bellDis.toFixed(2);
+						    vellDisDiv.textContent = bellDistanceNum + "km"; // 리스트 항목의 거리 설정
+						
+						    var bellAddressDiv = document.createElement('div'); // 도로 주소를 담을 <div> 요소 생성
+						    bellAddressDiv.className = 'list-address';
+						    bellAddressDiv.textContent = bellList[i].rn_adres; // 리스트 항목의 rn_adres 설정
+						
+						    var bellAddressGuDiv = document.createElement('div'); // 지번 주소를 담을 <div> 요소 생성
+						    bellAddressGuDiv.className = 'list-address-gu';
+						    bellAddressGuDiv.textContent = bellList[i].adres; // 리스트 항목의 adres 설정
+						
+						    var bellTelDiv = document.createElement('div'); // 전화번호를 담을 <div> 요소 생성
+						    bellTelDiv.className = 'list-tel';
+						    bellTelDiv.textContent = bellList[i].mng_tel; // 리스트 항목의 mng_tel 설정
+						
+						    // 생성한 <div> 요소들을 list-item에 추가
+						    bellListItem.appendChild(bellTitleDiv);
+						    bellListItem.appendChild(vellDisDiv);
+						    bellListItem.appendChild(bellAddressDiv);
+						    bellListItem.appendChild(bellAddressGuDiv);
+						    bellListItem.appendChild(bellTelDiv);
+						
+						    // list-item을 어딘가에 추가하려면 예를 들어 어떤 컨테이너 요소에 추가해야 합니다.
+						    // 예를 들어, id가 'container'인 요소에 추가하는 경우:
+						    var bellContainer = document.querySelector('.list-wrap');
+						    bellContainer.appendChild(bellListItem);
+						}
+	                	
 	                	// 마커 이미지의 이미지 주소입니다
 	                    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
 
@@ -164,13 +211,13 @@
 	                            clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
 	                            image: markerImage // 마커 이미지
 	                        });
-	                     // 마커에 표시할 인포윈도우를 생성합니다 
+	                     	// 마커에 표시할 인포윈도우를 생성합니다 
 	                        var infowindow = new kakao.maps.InfoWindow({
 	                            content: positions[i].content, // 인포윈도우에 표시할 내용
 	                            position: positions[i].latlng,
 	                            removable : positions[i].iwRemoveable
 	                        });
-	                     // 마커에 클릭이벤트를 등록합니다
+	                     	// 마커에 클릭이벤트를 등록합니다
 		                    kakao.maps.event.addListener(marker, 'click', makeOpenListener(map, marker, infowindow));
 
 	                        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
@@ -179,7 +226,38 @@
 // 	                        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 // 	                        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	                    }
-	                 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+	                    
+	                    // bell 마커를 생성하고 지도에 표시합니다
+	                    for (var i = 0; i < bellPositions.length; i++) {
+	                        // 마커 이미지를 생성합니다
+	                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+	                        // 마커를 생성합니다
+	                        var marker = new kakao.maps.Marker({
+	                            map: map, // 마커를 표시할 지도
+	                            position: bellPositions[i].latlng, // 마커를 표시할 위치
+	                            clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+	                            image: markerImage // 마커 이미지
+	                        });
+	                     	// 마커에 표시할 인포윈도우를 생성합니다 
+	                        var infowindow = new kakao.maps.InfoWindow({
+	                            content: bellPositions[i].content, // 인포윈도우에 표시할 내용
+	                            position: bellPositions[i].latlng,
+	                            removable : bellPositions[i].iwRemoveable
+	                        });
+	                     	// 마커에 클릭이벤트를 등록합니다
+		                    kakao.maps.event.addListener(marker, 'click', makeOpenListener(map, marker, infowindow));
+
+	                        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+	                        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+	                        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+// 	                        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+// 	                        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+	                    }
+	                    
+	                    
+	                    
+	                 	// 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 	                    function makeOpenListener(map, marker, infowindow) {
 	                        return function() {
 	                            infowindow.open(map, marker);
