@@ -20,7 +20,10 @@
  		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.219.123:1521:orcl" /> 
 	--> 
 
-		<property name="username" value="C##SAFEZONE" />
+	
+	
+	
+		<property name="username" value="c##safezone" />
 		<property name="password" value="1234" />
 	</bean>
 	
@@ -30,7 +33,7 @@
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
+<!-- 		<property name="configLocation" value="classpath:config/mybatis-config.xml" /> -->
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -44,4 +47,9 @@
 	<context:component-scan base-package="safezone.project.service"/>
 	<context:component-scan base-package="safezone.project.aop"/>
 	<aop:aspectj-autoproxy/>
+	
+	<!-- api key -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations" value="classpath:/apikeys.properties" />
+	</bean>
 </beans>
