@@ -106,7 +106,15 @@
 				<div class="sidebar-content">
 					
 					<div class="tab-content" id="pills-tabContent">
-					  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">.검색.</div>
+						<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+							<div class="list-wrap">
+<!-- 								<div class="list-item"> -->
+<!-- 									<div class="list-title"></div> -->
+<!-- 									<div class="list-address"></div> -->
+<!-- 									<div class="list-tel"></div> -->
+<!-- 								</div> -->
+							</div>
+						</div>
 					  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">.길찾기.</div>
 					  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">신청..</div>
 					  <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">문의..</div>
@@ -235,6 +243,31 @@
                 				latlng: new kakao.maps.LatLng(list[i].latitude, list[i].longitude),
                 				iwRemoveable: true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 	                		});
+	                		
+	                		var listItem = document.createElement('div'); // 새로운 <div> 요소 생성
+                	        listItem.className = 'list-item'; // 클래스 설정
+
+                	        var titleDiv = document.createElement('div'); // 제목을 담을 <div> 요소 생성
+                	        titleDiv.className = 'list-title';
+                	        titleDiv.textContent = list[i].storNm; // 리스트 항목의 제목 설정
+
+                	        var addressDiv = document.createElement('div'); // 주소를 담을 <div> 요소 생성
+                	        addressDiv.className = 'list-address';
+                	        addressDiv.textContent = list[i].rdnmadr; // 리스트 항목의 주소 설정
+
+                	        var telDiv = document.createElement('div'); // 전화번호를 담을 <div> 요소 생성
+                	        telDiv.className = 'list-tel';
+                	        telDiv.textContent = list[i].phoneNumber; // 리스트 항목의 전화번호 설정
+
+                	        // 생성한 <div> 요소들을 list-item에 추가
+                	        listItem.appendChild(titleDiv);
+                	        listItem.appendChild(addressDiv);
+                	        listItem.appendChild(telDiv);
+
+                	        // list-item을 어딘가에 추가하려면 예를 들어 어떤 컨테이너 요소에 추가해야 합니다.
+                	        // 예를 들어, id가 'container'인 요소에 추가하는 경우:
+                	        var container = document.querySelector('.list-wrap');
+                	        container.appendChild(listItem);
 	                	}
 	                	
 	                	// 마커 이미지의 이미지 주소입니다
@@ -295,24 +328,6 @@
 	            });
 		 });
 			
-	           
-	    
-
-	        // HTML5의 geolocation을 사용하여 위치 정보 얻어오는 코드 (이전 코드와 동일)
-
-	        // 위치 정보를 서버로 전송
-// 	        function sendLocation() {
-// 	            if (navigator.geolocation) {
-// 	                navigator.geolocation.getCurrentPosition(function (position) {
-// 	                    var lat = position.coords.latitude;
-// 	                    var lon = position.coords.longitude;
-// 	                    sendLocationToServer(lat, lon); // 서버로 위도와 경도 전송
-// 	                });
-// 	            } else {
-// 	                console.error('HTML5의 GeoLocation을 사용할 수 없습니다.');
-// 	            }
-// 	        }
-
 	      
 	</script>
 	<script>

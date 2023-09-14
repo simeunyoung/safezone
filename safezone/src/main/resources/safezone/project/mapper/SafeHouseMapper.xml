@@ -10,9 +10,13 @@
 </insert>
 
 <select id="getHouseList" resultType="SafeHouseDTO">
-	SELECT stornm, rdnmadr, lnmadr, latitude, longitude, phonenumber, cmptncpolcsttnnm
-	FROM safehouse
-	WHERE latitude BETWEEN #{minLat} AND #{maxLat} 
-	AND longitude BETWEEN #{minLng} AND #{maxLng}
+	SELECT *
+		FROM (
+		    SELECT e.*,
+		      (6371 * acos(cos(#{latitude} * 3.14159265358979323846 / 180) * cos(e.latitude * 3.14159265358979323846 / 180) * cos((e.longitude - #{longitude}) * 3.14159265358979323846 / 180) + sin(#{latitude} * 3.14159265358979323846 / 180) * sin(e.latitude * 3.14159265358979323846 / 180))) AS distance
+		    FROM safehouse e
+		)
+		<![CDATA[WHERE distance <= #{distance}]]>
+		ORDER BY distance
 </select>
 </mapper>

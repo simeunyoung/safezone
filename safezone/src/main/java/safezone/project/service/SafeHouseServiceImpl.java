@@ -12,7 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import safezone.project.compoent.SafeHouseDTO;
+import safezone.project.component.SafeHouseDTO;
 import safezone.project.mapper.SafeHouseMapper;
 
 @Service
@@ -21,21 +21,8 @@ public class SafeHouseServiceImpl implements SafeHouseService{
 	@Autowired
 	private SafeHouseMapper mapper;
 	
-	public List<SafeHouseDTO> getHouseList(double latitude, double longitude) {
-	
-		// 반경 500m 안의 경도, 위도 범위 계산
-		double earthRadius = 6371; // 지구 반지름 (단위: km)
-		double radius = 3; // 반경 500m (단위: km)
-
-		// 위도 범위 계산
-		double minLat = latitude - (radius / earthRadius) * (180 / Math.PI);
-		double maxLat = latitude + (radius / earthRadius) * (180 / Math.PI);
-
-		// 경도 범위 계산 (경도는 위도에 따라 범위가 다를 수 있음)
-		double minLng = longitude - (radius / earthRadius) * (180 / Math.PI) / Math.cos(latitude * Math.PI / 180);
-		double maxLng = longitude + (radius / earthRadius) * (180 / Math.PI) / Math.cos(latitude * Math.PI / 180);
-		
-	  return mapper.getHouseList(minLat, maxLat, minLng, maxLng);
+	public List<SafeHouseDTO> getHouseList(double latitude, double longitude, double distance) {
+	  return mapper.getHouseList(latitude, longitude, distance);
 	};
 
 		    

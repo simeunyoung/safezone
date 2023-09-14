@@ -240,3 +240,8 @@ input[type="search"]{width:100%;}
     border-radius: 3px;
     border: 1px solid #eee;    box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 2px 0px;
     position: absolute;}
+    
+ @media(min-width:1023px){
+ .map-wrap{margin-top:0;}
+ .sidebar-content{top:175px;bottom:auto;height:100%;}
+ }

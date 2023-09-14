@@ -1,4 +1,4 @@
-package safezone.project.compoent;
+package safezone.project.component;
 
 import lombok.Data;
 
@@ -15,4 +15,5 @@ public class SafeHouseDTO {
     private String useYn;
     private String referenceDate;
     private String insttCode;
+    private String distance;
 }
