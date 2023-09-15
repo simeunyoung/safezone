@@ -16,7 +16,12 @@ public class UserServiceImpl implements UserService{
 		mapper.insertUser(dto);
 	};
 	
-	public String checkUser(String email) {
-		return mapper.checkUser(email);
+	public String checkUser(UserDTO dto) {
+		return mapper.checkUser(dto);
 	}
+	
+	public String findEmail(UserDTO dto) {
+		return mapper.findEmail(dto);
+	}
+
 }

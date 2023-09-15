@@ -27,13 +27,13 @@ public class UserController {
     }
     
     @RequestMapping("/loginPro")
-    public @ResponseBody String loginPro(String email,String pw, HttpSession session) {
+    public @ResponseBody String loginPro(UserDTO dto, HttpSession session) {
     	String result = "0";
-    	String dpw = service.checkUser(email);
+    	String dpw = service.checkUser(dto);
     	if(dpw==null) {
     		result = "1";
-    		session.setAttribute("memId", email);
-    	}else if(dpw.equals(pw)){
+    		session.setAttribute("memId", dto.getEmail());
+    	}else if(dpw.equals(dto.getPw())){
     		result = "2";
     	}
     	return result;
@@ -53,7 +53,7 @@ public class UserController {
     @RequestMapping("/signPro")
     public @ResponseBody String signPro(UserDTO dto, HttpSession session) {
     	String result = "0";
-    	String pw = service.checkUser(dto.getEmail());
+    	String pw = service.checkUser(dto);
     	boolean check = false;
     	if(pw==null) {
     		check = true;
@@ -71,5 +71,23 @@ public class UserController {
     @RequestMapping("/findEmail")
     public String findEmail() {
     	return "user/findEmail";
+    }
+    
+    @RequestMapping("/findEmailPro")
+    public @ResponseBody String findEmailPro(UserDTO dto) {
+    	String result = service.findEmail(dto);
+    	return result;
+    }
+    
+    @RequestMapping("/findPw")
+    public String findPw() {
+    	return "user/findPw";
+    }
+    
+    @RequestMapping("/findPwPro")
+    public @ResponseBody String findPwPro(UserDTO dto) {
+    	String result = service.checkUser(dto);
+    	System.out.println(result);
+    	return result;
     }
 }

@@ -9,6 +9,16 @@
 	</insert>
 	
 	<select id="checkUser" resultType="String">
-		select pw from sz_user where email = #{email}
+		select pw from sz_user 
+		<where>
+			email = #{email}
+			<if test = "name != null">
+				and name = #{name}
+			</if>
+		</where> 
+	</select>
+	
+	<select id="findEmail" resultType="String">
+		select email from sz_user where name = #{name} and birth = #{birth} and tel = #{tel}
 	</select>
 </mapper>
