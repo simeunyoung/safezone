@@ -109,24 +109,24 @@ public class SafetyZoneController {
 	                
 	                // dto에 저장
 	                SafetyZoneDTO safetyZoneDTO = new SafetyZoneDTO();
-	                safetyZoneDTO.setOBJT_ID(OBJT_ID);
-	                safetyZoneDTO.setPOLICE(POLICE);
-	                safetyZoneDTO.setPOLCSTTN(POLCSTTN);
-	                safetyZoneDTO.setFCLTY_TY(FCLTY_TY);
-	                safetyZoneDTO.setFCLTY_CD(FCLTY_CD);
-	                safetyZoneDTO.setFCLTY_NM(FCLTY_NM);
-	                safetyZoneDTO.setADRES(ADRES);
-	                safetyZoneDTO.setRN_ADRES(RN_ADRES);
-	                safetyZoneDTO.setTELNO(TELNO);
-	                safetyZoneDTO.setCTPRVN_CD(CTPRVN_CD);
-	                safetyZoneDTO.setSGG_CD(SGG_CD);
-	                safetyZoneDTO.setLAT(X);
-	                safetyZoneDTO.setLON(Y);
+//	                safetyZoneDTO.setOBJT_ID(OBJT_ID);
+//	                safetyZoneDTO.setPOLICE(POLICE);
+//	                safetyZoneDTO.setPOLCSTTN(POLCSTTN);
+//	                safetyZoneDTO.setFCLTY_TY(FCLTY_TY);
+//	                safetyZoneDTO.setFCLTY_CD(FCLTY_CD);
+//	                safetyZoneDTO.setFCLTY_NM(FCLTY_NM);
+//	                safetyZoneDTO.setADRES(ADRES);
+//	                safetyZoneDTO.setRN_ADRES(RN_ADRES);
+//	                safetyZoneDTO.setTELNO(TELNO);
+//	                safetyZoneDTO.setCTPRVN_CD(CTPRVN_CD);
+//	                safetyZoneDTO.setSGG_CD(SGG_CD);
+//	                safetyZoneDTO.setLAT(X);
+//	                safetyZoneDTO.setLON(Y);
 	                
 	                
 	                service.insertSafetyZone(safetyZoneDTO);
 	                
-	                System.out.println(safetyZoneDTO.getLON());
+	                System.out.println(safetyZoneDTO.getLon());
 	            }
 	        }
 	    } catch (Exception e) {
@@ -265,4 +265,43 @@ public class SafetyZoneController {
         }
         return rs;
     }
+    
+    	@RequestMapping("/latLonToUTM")
+        public @ResponseBody Map<String, Double> latLonToUTM(double lat, double lon) {
+            // WGS 84 (위도, 경도) 좌표계를 위한 EPSG 코드
+            String wgs84EpsgCode = "EPSG:3857";
+
+            // UTM 좌표계를 위한 EPSG 코드 (한국 UTM Zone 52N)
+            String utmEpsgCode = "EPSG:3857";
+
+            Map<String, Double> result = new HashMap<>();
+
+            try {
+                // 좌표 변환을 위한 좌표계 객체 생성
+                CRSFactory crsFactory = new CRSFactory();
+                CoordinateReferenceSystem wgs84Crs = crsFactory.createFromName(wgs84EpsgCode);
+                CoordinateReferenceSystem utmCrs = crsFactory.createFromName(utmEpsgCode);
+
+                // 좌표 변환기 생성
+                CoordinateTransformFactory ctFactory = new CoordinateTransformFactory();
+                CoordinateTransform transform = ctFactory.createTransform(wgs84Crs, utmCrs);
+
+                // 위도와 경도를 UTM 좌표로 변환
+                ProjCoordinate wgs84Coord = new ProjCoordinate(lon, lat);
+                ProjCoordinate utmCoord = new ProjCoordinate();
+                transform.transform(wgs84Coord, utmCoord);
+
+                double utmX = utmCoord.x;
+                double utmY = utmCoord.y;
+                
+                System.out.println(utmX+"//"+utmY);
+
+                result.put("utmX", utmX);
+                result.put("utmY", utmY);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return result;
+        }
 }
