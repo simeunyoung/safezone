@@ -23,5 +23,9 @@ public class BellServiceImpl implements BellService{
 		return mapper.getBell(dto);
 	}
 	
+	public EmgbellDTO getNearBell(RadiusDTO dto) {
+		return mapper.getNearBell(dto);
+	}
+	
 	
 }

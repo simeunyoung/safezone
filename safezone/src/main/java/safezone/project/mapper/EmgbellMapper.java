@@ -9,4 +9,5 @@ import safezone.project.component.RadiusDTO;
 
 public interface EmgbellMapper {
 	public List<EmgbellDTO> getBell(RadiusDTO dto);
+	public EmgbellDTO getNearBell(RadiusDTO dto);
 }

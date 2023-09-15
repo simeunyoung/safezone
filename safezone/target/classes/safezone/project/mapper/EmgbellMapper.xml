@@ -15,6 +15,18 @@
 		<![CDATA[WHERE distance <= #{distance}]]>
 		ORDER BY distance
 	</select>
+	<select id="getNearBell" resultType="safezone.project.component.EmgbellDTO">
+		SELECT *
+		FROM(
+			SELECT *
+			FROM (
+			    SELECT e.*,
+			      (6371 * acos(cos(#{lat} * 3.14159265358979323846 / 180) * cos(e.lat * 3.14159265358979323846 / 180) * cos((e.lon - #{lon}) * 3.14159265358979323846 / 180) + sin(#{lat} * 3.14159265358979323846 / 180) * sin(e.lat * 3.14159265358979323846 / 180))) AS distance
+			    FROM emgbell e
+			)
+			ORDER BY distance
+		)WHERE rownum=1
+	</select>
 	<!-- 
 	<select id="getBell" resultType="safezone.project.component.EmgbellDTO">
 		SELECT * FROM(
