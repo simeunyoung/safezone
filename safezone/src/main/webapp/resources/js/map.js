@@ -98,13 +98,14 @@
 	                success: function (data) {
 	                   var list = data.SafeHouseDTO;
 	                   var bellList = data.EmgbellDTO;
+	                   var zoneList = data.SafetyZoneDTO;
 	                   var distance = data.distance * 1000;               
 	                	var positions = [];
 	                	// 주어진 객체로 원을 생성한다.
        		 			createCircle(lat, lon, distance);
 	                	for(var i = 0; i < list.length; i++){
 	                		positions.push({
-	                			content: '<div>' + list[i].storNm + ' ' + '<a href="https://map.kakao.com/link/to/' + list[i].storNm + ',' + list[i].latitude + ',' + list[i].longitude + '?sname='+ lat +','+ lon+'" style="color: blue" target="_blank">길찾기</a></div>',
+	                			content: '<div style="width:100%; height:100%; padding:5px;">' + list[i].storNm + ' ' + '<br><a href="https://map.kakao.com/link/to/' + list[i].storNm + ',' + list[i].latitude + ',' + list[i].longitude + '?sname='+ lat +','+ lon+'" style="color: blue" target="_blank">길찾기</a></div>',
                 				latlng: new kakao.maps.LatLng(list[i].latitude, list[i].longitude),
                 				iwRemoveable: true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 	                		});
@@ -150,7 +151,7 @@
 	                	var bellPositions = [];
 	                	for (var i = 0; i < bellList.length; i++) {
 						    bellPositions.push({
-						        content: '<div>' + bellList[i].ins_detail+' '+bellList[i].fclty_ty + ' ' + '<a href="https://map.kakao.com/link/to/' + bellList[i].ins_detail + ',' + bellList[i].lat + ',' + bellList[i].lon + '?sname='+ lat +','+ lon+'" style="color: blue" target="_blank">길찾기</a></div>',
+						        content: '<div style="width:250px; height:60px; padding:5px;">' + bellList[i].ins_detail+' '+bellList[i].fclty_ty + ' ' + '<br><a href="https://map.kakao.com/link/to/' + bellList[i].ins_detail + ',' + bellList[i].lat + ',' + bellList[i].lon + '?sname='+ lat +','+ lon+'" style="color: blue" target="_blank">길찾기</a></div>',
 						        latlng: new kakao.maps.LatLng(bellList[i].lat, bellList[i].lon),
 						        iwRemoveable: true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 						    });
@@ -192,17 +193,70 @@
 						    var bellContainer = document.querySelector('.list-wrap');
 						    bellContainer.appendChild(bellListItem);
 						}
+						
+						///윤지
+						var zonePositions = [];
+	                	for (var i = 0; i < zoneList.length; i++) {
+						    zonePositions.push({
+						        content: '<div style="width:100%; height:100%; padding:5px;">' + zoneList[i].fclty_nm+' '+ ' ' + '<br><a href="https://map.kakao.com/link/to/' + zoneList[i].fclty_nm + ',' + zoneList[i].lat + ',' + zoneList[i].lon + '?sname='+ lat +','+ lon+'" style="color: blue" target="_blank">길찾기</a></div>',
+						        latlng: new kakao.maps.LatLng(zoneList[i].lat, zoneList[i].lon),
+						        iwRemoveable: true // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+						    });
+						
+						    var zoneListItem = document.createElement('div'); // 새로운 <div> 요소 생성
+						    zoneListItem.className = 'list-item'; // 클래스 설정
+						
+						    var zoneTitleDiv = document.createElement('div'); // 제목을 담을 <div> 요소 생성
+						    zoneTitleDiv.className = 'list-title';
+						    zoneTitleDiv.textContent = zoneList[i].fclty_nm;
+						
+						    var zoneDisDiv = document.createElement('div'); // 거리를 담을 <div> 요소 생성
+						    zoneDisDiv.className = 'list-dis';
+						    var zoneDis = parseFloat(zoneList[i].distance);
+						    var zoneDistanceNum = zoneDis.toFixed(2);
+						    zoneDisDiv.textContent = zoneDistanceNum + "km"; // 리스트 항목의 거리 설정
+						
+						    var zoneAddressDiv = document.createElement('div'); // 도로 주소를 담을 <div> 요소 생성
+						    zoneAddressDiv.className = 'list-address';
+						    zoneAddressDiv.textContent = zoneList[i].rn_adres; // 리스트 항목의 rn_adres 설정
+						
+						    var zoneAddressGuDiv = document.createElement('div'); // 지번 주소를 담을 <div> 요소 생성
+						    zoneAddressGuDiv.className = 'list-address-gu';
+						    zoneAddressGuDiv.textContent = zoneList[i].adres; // 리스트 항목의 adres 설정
+						
+						    var zoneTelDiv = document.createElement('div'); // 전화번호를 담을 <div> 요소 생성
+						    zoneTelDiv.className = 'list-tel';
+						    zoneTelDiv.textContent = zoneList[i].telno; // 리스트 항목의 TELNO 설정
+						
+						    // 생성한 <div> 요소들을 list-item에 추가
+						    zoneListItem.appendChild(zoneTitleDiv);
+						    zoneListItem.appendChild(zoneDisDiv);
+						    zoneListItem.appendChild(zoneAddressDiv);
+						    zoneListItem.appendChild(zoneAddressGuDiv);
+						    zoneListItem.appendChild(zoneTelDiv);
+						
+						    // list-item을 어딘가에 추가하려면 예를 들어 어떤 컨테이너 요소에 추가해야 합니다.
+						    // 예를 들어, id가 'container'인 요소에 추가하는 경우:
+						    var zoneContainer = document.querySelector('.list-wrap');
+						    zoneContainer.appendChild(zoneListItem);
+						}
+						
+						///윤지
 	                	
 	                	// 마커 이미지의 이미지 주소입니다
-	                    var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
-
+	                    //var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+						//var imageSrc2 = "/safezone/resources/img/299087_marker_map_icon"
+						var Himg = "/safezone/resources/img/88051_outside_azure_mapmarker_marker_icon.png"
+						var Bimg = "/safezone/resources/img/88049_chartreuse_inside_mapmarker_marker_icon.png"
+						var Zimg = "/safezone/resources/img/88053_mapmarker_marker_outside_pink_icon.png"
+						
 	                    // 마커 이미지의 이미지 크기 입니다
 	                    var imageSize = new kakao.maps.Size(24, 35); 
 
 	                    // 마커를 생성하고 지도에 표시합니다
 	                    for (var i = 0; i < positions.length; i++) {
 	                        // 마커 이미지를 생성합니다
-	                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+	                        var markerImage = new kakao.maps.MarkerImage(Himg, imageSize);
 
 	                        // 마커를 생성합니다
 	                        var marker = new kakao.maps.Marker({
@@ -230,7 +284,7 @@
 	                    // bell 마커를 생성하고 지도에 표시합니다
 	                    for (var i = 0; i < bellPositions.length; i++) {
 	                        // 마커 이미지를 생성합니다
-	                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+	                        var markerImage = new kakao.maps.MarkerImage(Bimg, imageSize);
 
 	                        // 마커를 생성합니다
 	                        var marker = new kakao.maps.Marker({
@@ -244,6 +298,34 @@
 	                            content: bellPositions[i].content, // 인포윈도우에 표시할 내용
 	                            position: bellPositions[i].latlng,
 	                            removable : bellPositions[i].iwRemoveable
+	                        });
+	                     	// 마커에 클릭이벤트를 등록합니다
+		                    kakao.maps.event.addListener(marker, 'click', makeOpenListener(map, marker, infowindow));
+
+	                        // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+	                        // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+	                        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+// 	                        kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+// 	                        kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+	                    }
+	                    
+	                    // zone 마커를 생성하고 지도에 표시합니다
+	                    for (var i = 0; i < zonePositions.length; i++) {
+	                        // 마커 이미지를 생성합니다
+	                        var markerImage = new kakao.maps.MarkerImage(Zimg, imageSize);
+
+	                        // 마커를 생성합니다
+	                        var marker = new kakao.maps.Marker({
+	                            map: map, // 마커를 표시할 지도
+	                            position: zonePositions[i].latlng, // 마커를 표시할 위치
+	                            clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+	                            image: markerImage // 마커 이미지
+	                        });
+	                     	// 마커에 표시할 인포윈도우를 생성합니다 
+	                        var infowindow = new kakao.maps.InfoWindow({
+	                            content: zonePositions[i].content, // 인포윈도우에 표시할 내용
+	                            position: zonePositions[i].latlng,
+	                            removable : zonePositions[i].iwRemoveable
 	                        });
 	                     	// 마커에 클릭이벤트를 등록합니다
 		                    kakao.maps.event.addListener(marker, 'click', makeOpenListener(map, marker, infowindow));
