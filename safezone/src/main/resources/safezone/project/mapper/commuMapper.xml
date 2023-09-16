@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+  
+<mapper namespace="safezone.project.mapper.CommuMapper">
+	<insert id="insertCommu">
+		INSERT INTO commu(commu_num, location_num, category, email, title, content, img1) 
+		VALUES (commu_num_seq.nextval, #{location_num}, #{category}, #{email}, #{title}, #{content}, #{img1});
+	</insert>
+</mapper>
