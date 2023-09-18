@@ -21,4 +21,5 @@ public class CommuDTO {
     private Timestamp modify_at;
     private int statu; // 노출0 비노출1
     private int complain; //
+    private int pageNum=1;
 }

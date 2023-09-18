@@ -37,4 +37,12 @@
 	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 	    <beans:property name="locations" value="classpath:/apikeys.properties" />
 	</beans:bean>
+	
+	<!-- MultipartResolver 설정 -->
+    <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<!-- max 20mb -->
+        <beans:property name="maxUploadSize" value="209715200"/>
+        <beans:property name="defaultEncoding" value="utf-8"/>
+    </beans:bean>
+    
 </beans:beans>

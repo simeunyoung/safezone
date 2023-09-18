@@ -1,12 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-Mapper.dtd">
   
 <mapper namespace="safezone.project.mapper.CommuMapper">
 	<insert id="insertCommu">
-		INSERT INTO commu(commu_num, location_num, category, email, title, content, img1) 
-		VALUES (commu_num_seq.nextval, #{location_num}, #{category}, #{email}, #{title}, #{content}, #{img1});
+			INSERT INTO commu(commu_num, location_num, category, email, title, content
+	    <if test="img1!=null">, img1</if>
+	    <if test="img2!=null">, img2</if>
+	    <if test="img3!=null">, img3</if>
+	    )
+	    VALUES(commu_seq.nextval, #{location_num}, #{category}, 'test', #{title}, #{content}
+	    <if test="img1!=null">, #{img1}</if>
+	    <if test="img2!=null">, #{img2}</if>
+	    <if test="img3!=null">, #{img3}</if>
+	    )
 	</insert>
+	
+	<select id="getCommu" resultType="safezone.project.component.CommuDTO">
+		SELECT * FROM commu
+		<where>
+			statu=0
+			<if test="location_num>0">AND location_num=#{location_num}</if>
+			<if test="category>0">AND category=#{category}</if>
+			<if test="commu_num>0">AND commu_num=#{commu_num}</if>
+		</where>
+		ORDER BY created_at DESC
+	</select>
+	
+	<update id="updateCommu">
+		UPDATE commu SET modify_at=sysdate
+		<if test="location_num>0">, location_num=#{location_num}</if>
+		<if test="category>0">, category=#{category}</if>
+		<if test="title!=null">, title=#{title}</if>
+		<if test="content!=null">, content=#{content}</if>
+		<if test="img1!=null">, #{img1}</if>
+	    <if test="img2!=null">, #{img2}</if>
+	    <if test="img3!=null">, #{img3}</if>
+		WHERE commu_num=#{commu_num}
+	</update>
 </mapper>
