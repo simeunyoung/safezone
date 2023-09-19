@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="https://kit.fontawesome.com/f507061817.js" crossorigin="anonymous"></script>
 	<link href="/safezone/resources/css/style.css" rel="stylesheet">
 	
-	<script src="/safezone/resources/js/commuForm.js"></script>
+	<script src="/safezone/resources/js/commuForm.js?ver=2"></script>
 </head>
 <body>
 	<form name="myForm" class="container" action="submitForm" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
@@ -70,7 +70,7 @@
 			</div>
 			<div class="col-12">
 				<textarea class="form-control" name="content" rows="8" placeholder="내용을 입력하세요" 
-				value="${dto.content}" style="resize:none;" oninput="countCharacters('content', 'contentCount',1000)"></textarea>
+				style="resize:none;" oninput="countCharacters('content', 'contentCount',1000)">${dto.content}</textarea>
 				<span id="contentCount">0</span> / 1000
 			</div>
 			<c:if test="${dto.commu_num==null || dto.commu_num==0}">

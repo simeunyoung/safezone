@@ -47,7 +47,7 @@
 			</div>
 		</c:if>
 	</div>
-	<form action="">
+	<form action="/safezone/community/form">
 		<input type="hidden" name="commu_num" value="${dto.commu_num}">
 		<div class="col-12">
 			<button type="button" class="btn btn-light" onclick="location='/safezone/community/home'">목록</button>

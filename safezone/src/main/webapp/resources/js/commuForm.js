@@ -26,6 +26,7 @@
         var preview = document.createElement('img');
         preview.className = 'thumbnail';
         preview.style.maxWidth = '100px';
+        
 
         if (file) {
             var reader = new FileReader();
@@ -39,6 +40,12 @@
                     previewClone.src = e.target.result;
                     fileDiv.appendChild(previewClone);
                     fileDiv.appendChild(fileNameElement);
+                    
+			        var deleteButton = document.createElement('button');
+			        deleteButton.className = 'btn btn-danger btn-sm';
+			        deleteButton.innerText = '삭제';
+                    
+                    fileDiv.appendChild(deleteButton);
                 };
             })(file, fileDiv);
 

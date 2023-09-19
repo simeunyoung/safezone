@@ -45,7 +45,7 @@ public class CommuController {
 		if(dto.getCommu_num()>0) {
 			List<CommuDTO> modelDTO = service.getCommu(dto);
 			model.addAttribute("dto", modelDTO.get(0));
-			model.addAttribute("path", request.getRealPath("/WEB-INF/files/"));
+			model.addAttribute("path", "/safezone/resources/files/");
 		}
 		
 		return "/community/commuWrite";
@@ -60,7 +60,7 @@ public class CommuController {
 		
 		if(modelDTO.size()>0) {
 			model.addAttribute("dto", modelDTO.get(0));
-			model.addAttribute("path", request.getRealPath("safezoneImgFiles/"));
+			model.addAttribute("path", "/safezone/resources/files/");
 		}
 		return "/community/commuContent";
 	}
@@ -71,7 +71,8 @@ public class CommuController {
 		try {
             multipartRequest.setCharacterEncoding("utf-8");
             List<MultipartFile> fileList = multipartRequest.getFiles("file[]");
-            String path = multipartRequest.getSession().getServletContext().getRealPath("safezoneImgFiles/");
+            String path = multipartRequest.getSession().getServletContext().getRealPath("/resources/files/");
+            System.out.println("저장 전 경로 확인"+path);
 //            String path = multipartRequest.getSession().getServletContext().getRealPath("safezoneImgFiles/");
             
             if(fileList.get(0).getSize()>0 || (fileList.size()>1 && fileList.size()<4)) {
@@ -89,6 +90,6 @@ public class CommuController {
 		System.out.println(dto.toString());
 		service.insertCommu(dto);
 		
-		return "redirect:/community/commuList";
+		return "redirect:/community/home";
 	}
 }
