@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+  
+<mapper namespace="safezone.project.mapper.SafeHouseMapper">
+
+<insert id="insert">
+    INSERT INTO safehouse VALUES (#{storNm}, #{signguCode}, #{rdnmadr}, #{lnmadr}, #{latitude}, #{longitude}, #{phoneNumber}, #{cmptncPolcsttnNm}, #{useYn}, #{referenceDate}, #{insttCode})
+</insert>
+
+<select id="getHouseList" resultType="SafeHouseDTO">
+	SELECT *
+		FROM (
+		    SELECT e.*,
+		      (6371 * acos(cos(#{latitude} * 3.14159265358979323846 / 180) * cos(e.latitude * 3.14159265358979323846 / 180) * cos((e.longitude - #{longitude}) * 3.14159265358979323846 / 180) + sin(#{latitude} * 3.14159265358979323846 / 180) * sin(e.latitude * 3.14159265358979323846 / 180))) AS distance
+		    FROM safehouse e
+		)
+		<![CDATA[WHERE distance <= #{distance}]]>
+		ORDER BY distance
+</select>
+</mapper>

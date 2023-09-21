@@ -5,6 +5,24 @@
   
 <mapper namespace="safezone.project.mapper.SafetyZoneMapper">
 	<insert id="insertSafetyZone">
-		insert into safetyzone values(#{OBJT_ID},#{POLICE},#{POLCSTTN},#{FCLTY_TY},#{FCLTY_CD},#{FCLTY_NM},#{ADRES},#{RN_ADRES},#{TELNO},#{CTPRVN_CD},#{SGG_CD},#{X},#{Y})
+		insert into safetyzone values(#{OBJT_ID},#{POLICE},#{POLCSTTN},#{FCLTY_TY},#{FCLTY_CD},#{FCLTY_NM},#{ADRES},#{RN_ADRES},#{TELNO},#{CTPRVN_CD},#{SGG_CD},#{LAT},#{LON})
 	</insert>
+	
+	<select id="getSafeList" resultType="SafetyZoneDTO">
+		SELECT FCLTY_NM, ADRES, RN_ADRES, TELNO, LAT, LON, FCLTY_TY
+		FROM safetyzone
+		WHERE LAT BETWEEN #{minLat} AND #{maxLat} 
+		AND LON BETWEEN #{minLng} AND #{maxLng}
+	</select>
+	
+	<select id="getList" resultType="SafetyZoneDTO">
+		SELECT *
+      FROM (
+          SELECT e.*,
+            (6371 * acos(cos(#{lat} * 3.14159265358979323846 / 180) * cos(e.LAT * 3.14159265358979323846 / 180) * cos((e.LON - #{lon}) * 3.14159265358979323846 / 180) + sin(#{lat} * 3.14159265358979323846 / 180) * sin(e.LAT * 3.14159265358979323846 / 180))) AS distance
+          FROM safetyzone e
+      )
+      <![CDATA[WHERE distance <= #{distance}]]>
+      ORDER BY distance
+	</select>
 </mapper>
