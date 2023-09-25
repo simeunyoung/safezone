@@ -108,25 +108,25 @@ public class SafetyZoneController {
 	                System.out.println("--------------------");
 	                
 	                // dto에 저장
-	                SafetyZoneDTO safetyZoneDTO = new SafetyZoneDTO();
-	                safetyZoneDTO.setOBJT_ID(OBJT_ID);
-	                safetyZoneDTO.setPOLICE(POLICE);
-	                safetyZoneDTO.setPOLCSTTN(POLCSTTN);
-	                safetyZoneDTO.setFCLTY_TY(FCLTY_TY);
-	                safetyZoneDTO.setFCLTY_CD(FCLTY_CD);
-	                safetyZoneDTO.setFCLTY_NM(FCLTY_NM);
-	                safetyZoneDTO.setADRES(ADRES);
-	                safetyZoneDTO.setRN_ADRES(RN_ADRES);
-	                safetyZoneDTO.setTELNO(TELNO);
-	                safetyZoneDTO.setCTPRVN_CD(CTPRVN_CD);
-	                safetyZoneDTO.setSGG_CD(SGG_CD);
-	                safetyZoneDTO.setLAT(X);
-	                safetyZoneDTO.setLON(Y);
-	                
-	                
-	                service.insertSafetyZone(safetyZoneDTO);
-	                
-	                System.out.println(safetyZoneDTO.getLON());
+//	                SafetyZoneDTO safetyZoneDTO = new SafetyZoneDTO();
+//	                safetyZoneDTO.setOBJT_ID(OBJT_ID);
+//	                safetyZoneDTO.setPOLICE(POLICE);
+//	                safetyZoneDTO.setPOLCSTTN(POLCSTTN);
+//	                safetyZoneDTO.setFCLTY_TY(FCLTY_TY);
+//	                safetyZoneDTO.setFCLTY_CD(FCLTY_CD);
+//	                safetyZoneDTO.setFCLTY_NM(FCLTY_NM);
+//	                safetyZoneDTO.setADRES(ADRES);
+//	                safetyZoneDTO.setRN_ADRES(RN_ADRES);
+//	                safetyZoneDTO.setTELNO(TELNO);
+//	                safetyZoneDTO.setCTPRVN_CD(CTPRVN_CD);
+//	                safetyZoneDTO.setSGG_CD(SGG_CD);
+//	                safetyZoneDTO.setLAT(X);
+//	                safetyZoneDTO.setLON(Y);
+//	                
+//	                
+//	                service.insertSafetyZone(safetyZoneDTO);
+//	                
+//	                System.out.println(safetyZoneDTO.getLON());
 	            }
 	        }
 	    } catch (Exception e) {

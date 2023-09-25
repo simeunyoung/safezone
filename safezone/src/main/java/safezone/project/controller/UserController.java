@@ -32,9 +32,9 @@ public class UserController {
     	String dpw = service.checkUser(dto);
     	if(dpw==null) {
     		result = "1";
-    		session.setAttribute("memId", dto.getEmail());
     	}else if(dpw.equals(dto.getPw())){
     		result = "2";
+    		session.setAttribute("memId", dto.getEmail());
     	}
     	return result;
     }
