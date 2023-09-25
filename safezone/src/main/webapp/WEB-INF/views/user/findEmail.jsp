@@ -44,13 +44,21 @@
 	  z-index: 2;
 	}
 	
-	.form-signin input[type="text"] {
+	.form-signin input[id="name"] {
 	  margin-bottom: -1px;
 	  border-bottom-right-radius: 0;
 	  border-bottom-left-radius: 0;
 	}
 	
-	.form-signin input[type="password"] {
+	.form-signin input[id="birth"] {
+	  margin-bottom: -1px;
+	  border-bottom-right-radius: 0;
+	  border-bottom-left-radius: 0;
+	  border-top-left-radius: 0;
+	  border-top-right-radius: 0;
+	}
+	
+	.form-signin input[id="tel"] {
 	  margin-bottom: 10px;
 	  border-top-left-radius: 0;
 	  border-top-right-radius: 0;
@@ -69,57 +77,50 @@
       <form action="loginPro" method="post">
       	<!-- 로고 이미지 -->
          <a href="/safezone/main"><img class="mb-4" src="" alt="" width="72" height="57"></a>
-         <p>회원이 아니신가요? <a href="sign">회원가입하기</a></p>
+         <p>비밀번호를 잊으셨나요? <a href="findPw">비밀번호 찾기</a></p>
          
          <div class="form-floating">
-            <input type="text" class="form-control" id="email" placeholder="아이디 입력...">
-            <label for="email">이메일</label>
+            <input type="text" class="form-control" id="name" placeholder="아이디 입력...">
+            <label for="name">성명</label>
          </div>
          <div class="form-floating">
-            <input type="password" class="form-control" id="pw" placeholder="Password">
-            <label for="pw">비밀번호</label>
+            <input type="text" class="form-control" id="birth" placeholder="Password">
+            <label for="birth">생년월일</label>
          </div>
-         
-         <!-- <div class="checkbox mb-3">
-            <label>
-               <input type="checkbox" value="remember-me"> 아이디 저장
-            </label>
-         </div> -->
-         <button class="mb-3 w-100 btn btn-lg btn-primary" type="button" onclick="login()">로그인</button>
-<!--          <button class="mb-1 w-100 btn btn-lg btn-outline-primary" type="button" onclick="location='sign'">회원가입</button>
- -->         <div class="find-wrap">
-            <a href="/safezone/user/findEmail">이메일/비밀번호 찾기</a>
-          </div>
+         <div class="form-floating">
+            <input type="text" class="form-control" id="tel" placeholder="Password">
+            <label for="tel">전화번호</label>
+         </div>
+         <button class="mb-3 w-100 btn btn-lg btn-primary" type="button" onclick="findEmail()">이메일 찾기</button>
       </form>
    </main>
    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-		function login(){
-			var email = $("#email").val();
-            var pw = $("#pw").val();
+		function findEmail(){
+			var name = $("#name").val();
+            var birth = $("#birth").val();
+            var tel = $("#tel").val();
 
-            if (email === '' || pw == '') {
+            if (name === '' || birth == '' || tel == '') {
                 alert("모든 항목을 입력해주세요.");
                 return false;
             }
             
             $.ajax({
-                url: "/safezone/user/loginPro",
+                url: "/safezone/user/findEmailPro",
                 contentType: "application/x-www-form-urlencoded; charset=UTF-8",
                 method: "POST",
-                data: { email: email, pw: pw },
+                data: { name: name, birth: birth, tel: tel},
                 error: function(xhr, status, error) {
                     var errorMessage = "오류: " + xhr.status + " " + xhr.statusText;
                     alert(errorMessage);
                 },
                 success: function(result) {
-                    if (result == "1") {
-                        alert("이메일을 다시 확인해주세요.");
-                    } else if (result == "2") {
-                        window.location.href = "/safezone/main";
-                    } else if (result == "0") {
-                        alert("비밀번호가 일치하지 않습니다.\n다시 입력해주세요.");
+                    if (result === "") {
+                        alert("회원정보를 찾을 수 없습니다. \n다시 입력해주세요.");
+                    } else{
+                    	alert(result);
                     }
                 }
             });
