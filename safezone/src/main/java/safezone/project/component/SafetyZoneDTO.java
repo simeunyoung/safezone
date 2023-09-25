@@ -4,17 +4,18 @@ import lombok.Data;
 
 @Data
 public class SafetyZoneDTO {
-	private int OBJT_ID;
-    private String POLICE; //경찰청
-    private String POLCSTTN; //경찰서
-    private String FCLTY_TY; //시설유형
-    private int FCLTY_CD; //시설코드
-    private String FCLTY_NM; //시설명
-    private String ADRES; //지번주소
-    private String RN_ADRES; //도로명주소
-    private String TELNO; //전화번호
-    private int CTPRVN_CD; //시도코드
-    private int SGG_CD; //시군구코드
-    private String X; //위도
-    private String Y; //경도
+	private int objt_id;
+    private String police; //경찰청
+    private String polcsttn; //경찰서
+    private String fclty_ty; //시설유형
+    private int fclty_cd; //시설코드
+    private String fclty_nm; //시설명
+    private String adres; //지번주소
+    private String rn_adres; //도로명주소
+    private String telno; //전화번호
+    private int ctprvn_cd; //시도코드
+    private int sgg_cd; //시군구코드
+    private String lat; //위도
+    private String lon; //경도
+    private double distance;
 }

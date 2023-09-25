@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+  
+<mapper namespace="safezone.project.mapper.ApplyMapper">
+
+<insert id="applyInsert">
+    INSERT INTO safezone_apply (apply_num, email, address, category, created_at) VALUES (safezone_apply_seq.NEXTVAL, #{email}, #{address}, #{category}, sysdate)
+</insert>
+
+<select id="getApplyList" resultType="ApplyDTO">
+	select * from safezone_apply
+</select>
+
+<select id="getApplyDate" resultType="String">
+	select created_at from safezone_apply where email = #{email}
+</select>
+</mapper>

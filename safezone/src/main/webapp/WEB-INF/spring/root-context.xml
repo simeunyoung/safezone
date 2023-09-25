@@ -33,7 +33,7 @@
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-<!-- 		<property name="configLocation" value="classpath:config/mybatis-config.xml" /> -->
+		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -46,5 +46,11 @@
 	<context:annotation-config/>
 	<context:component-scan base-package="safezone.project.service"/>
 	<context:component-scan base-package="safezone.project.aop"/>
+	<context:component-scan base-package="safezone.project" />
 	<aop:aspectj-autoproxy/>
+	
+	<!-- api key -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <property name="locations" value="classpath:/apikeys.properties" />
+	</bean>
 </beans>

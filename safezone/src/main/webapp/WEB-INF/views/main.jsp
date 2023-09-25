@@ -23,6 +23,7 @@
 <!-- 폰트어썸 아이콘 -->
 <script src="https://kit.fontawesome.com/f507061817.js" crossorigin="anonymous"></script>
 <link href="/safezone/resources/css/style.css" rel="stylesheet">
+
 <style>
 
 </style>
@@ -68,11 +69,13 @@
 			<div class="side-bar col-md-12 col-lg-3">
 				
 				<div class="sidebar-top">
+		
 					<button class="sidebar-button"><i class="fa-solid fa-chevron-left" style="color: #c2c2c2;"></i></button>
 					<div class="sidebar-top-menu mb-3">
 						<div class="d-flex">
 							<div class="menu-btn"><i class="fa-solid fa-bars fa-lg" style="color: #ffffff;"></i></div>
 							<div class="ms-3">로고</div>
+							<div><a href="/safezone/user/login">로그인</a></div>
 						</div>
 						<div>현 지도 내장소검색</div>
 					</div>
@@ -104,7 +107,10 @@
 				<div class="sidebar-content">
 					
 					<div class="tab-content" id="pills-tabContent">
-					  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">.검색.</div>
+						<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+							<div class="list-wrap">
+							</div>
+						</div>
 					  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">.길찾기.</div>
 					  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">신청..</div>
 					  <div class="tab-pane fade" id="pills-disabled" role="tabpanel" aria-labelledby="pills-disabled-tab" tabindex="0">문의..</div>
@@ -126,42 +132,8 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 		crossorigin="anonymous"></script>
-	<script type="text/javascript">
-		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-		var options = { //지도를 생성할 때 필요한 기본 옵션
-			center : new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-			level : 3
-		//지도의 레벨(확대, 축소 정도)
-		};
-
-		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-
-		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
-		var mapTypeControl = new kakao.maps.MapTypeControl();
-
-		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
-		// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
-		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
-
-		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
-		var zoomControl = new kakao.maps.ZoomControl();
-		map.addControl(zoomControl, kakao.maps.ControlPosition.BOTTOMRIGHT);
-		
-		// 지도에 클릭 이벤트를 등록합니다
-		// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-		kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-		    
-		    // 클릭한 위도, 경도 정보를 가져옵니다 
-		    var latlng = mouseEvent.latLng;
-		    
-		    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-		    message += '경도는 ' + latlng.getLng() + ' 입니다';
-		    
-		    var resultDiv = document.getElementById('result'); 
-		    resultDiv.innerHTML = message;
-		    
-		});
-	</script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="/safezone/resources/js/map.js"></script>
 	<script>
 		const sidebar = document.querySelector('.side-bar');
 		const sidebar1 = document.querySelector('.sidebar-top');
