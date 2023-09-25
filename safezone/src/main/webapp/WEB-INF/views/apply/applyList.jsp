@@ -151,7 +151,7 @@
 
     	   // applyNum을 사용하여 DB에서 해당 항목의 추천 수를 +1 업데이트하고 Ajax 요청을 보냅니다.
     	   $.ajax({
-    	     url: '/applyRecommend', // 컨트롤러의 URL로 변경하세요.
+    	     url: '/applyRecommed', // 컨트롤러의 URL로 변경하세요.
     	     type: 'POST',
     	     data: { applyNum: applyNum },
     	     success: function (data) {
@@ -176,7 +176,7 @@
 
     	   // applyNum을 사용하여 DB에서 해당 항목의 추천 수를 -1 업데이트하고 Ajax 요청을 보냅니다.
     	   $.ajax({
-    	     url: '/applyRecommend', // 컨트롤러의 URL로 변경하세요.
+    	     url: '/your-controller-url/cancelRecommend', // 컨트롤러의 URL로 변경하세요.
     	     type: 'POST',
     	     data: { applyNum: applyNum },
     	     success: function (data) {
