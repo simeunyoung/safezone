@@ -32,36 +32,26 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/whou/cs/admin">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/safezone/admin/admin">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">WhoU Admin</div>
+                <div class="sidebar-brand-text mx-3">SafeZone Admin</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
+            <!-- 
             <li class="nav-item active">
-                <a class="nav-link" href="/whou/cs/admin">
+                <a class="nav-link" href="/safezone/cs/admin">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>AdminPage</span></a>
                     
-            </li>
-            <hr class="sidebar-divider">
-			<!-- Heading -->
-            <div class="sidebar-heading">
-                admin
-            </div>
-            <li class="nav-item">
-                <a class="nav-link" href="/whou/admin/adminList">
-                    <span>AdminList</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/whou/admin/adminJoin">
-                    <span>AdminJoinForm</span></a>
-            </li>
+            </li> -->
+            
+            
+            
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -72,9 +62,9 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/safezone/admin/notice" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/safezone/admin/inquiry" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <span>Notice</span>
+                    <span>문의</span>
                 </a>
             </li>
 
@@ -82,14 +72,36 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/whou/cs/faq" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <span>FAQ</span>
+                    <span>설치/고장</span>
                 </a>
             </li>
-
-            <!-- Divider -->
+            
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/whou/cs/faq" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <span>커뮤니티</span>
+                </a>
+            </li>
+            
+            <hr class="sidebar-divider">
+			<!-- Heading -->
+            <div class="sidebar-heading">
+                admin
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="/safezone/admin/adminList">
+                    <span>관리자 리스트</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/safezone/admin/adminJoin">
+                    <span>관리자 계정 추가</span></a>
+            </li>
+<!-- 
+            Divider
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
+            Heading
             <div class="sidebar-heading">
                 AI
             </div>
@@ -104,19 +116,21 @@
                 <a class="nav-link" href="/whou/assistant/aiList">
                     <span>ChatBotList</span></a>
             </li>
-            <!-- Divider -->
+            Divider
             <hr class="sidebar-divider d-none d-md-block">
-                     <!-- Divider -->
+                     Divider
            
 
-            <!-- Heading -->
+            Heading
             <div class="sidebar-heading">
                 Search
             </div>
             <li class="nav-item">
                 <a class="nav-link" href="/whou/cs/searchDetail">
                     <span>SearchDetail</span></a>
-            </li>                       
+            </li> -->            
+            
+                       
         </ul>
         <!-- End of Sidebar -->
 
@@ -135,7 +149,7 @@
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <div class="input-group-append">
-		                        <a href="/whou/main">main</a>
+		                        <a href="/safezone/main">메인화면</a> <!-- 로고를 넣자 -->
 								<i class="fas fa-search fa-sm"></i>
                             </div>
                         </div>
@@ -147,7 +161,7 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">AdminPage</h1>
+                        <h1 class="h3 mb-0 text-gray-800">CS</h1>
                     </div>
 
                     <!-- Content Row -->
@@ -159,9 +173,9 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Notice</div>
+                                                문의</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            	<a href="/whou/cs/noticeWriteForm">작성</a>
+                                            	<a href="/whou/cs/noticeWriteForm">관리</a>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -179,9 +193,9 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                FAQ</div>
+                                                설치/고장</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            	<a href="/whou/cs/faqWriteForm">작성</a>
+                                            	<a href="/whou/cs/faqWriteForm">관리</a>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -199,10 +213,10 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                            	ChatBot
+                                            	커뮤니티
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            	<a href="/whou/assistant/aiList">수정 & 작성</a>
+                                            	<a href="/whou/assistant/aiList">관리</a>
                                             </div>
                                         </div>
                                         <div class="col-auto">
@@ -213,7 +227,10 @@
                             </div>
                         </div>                        
                     </div>
-                    <h3>Search Top 5</h3>
+                    
+                    
+                    
+                    <%-- <h3>Search Top 5</h3>
                     <input type="button" value="오늘" class="dateSel btn btn-secondary" data-name="today" />
                     <input type="button" value="일주일" class="dateSel btn btn-secondary" data-name="week" />
                     <input type="button" value="한달" class="dateSel btn btn-secondary" data-name="month" />
@@ -240,17 +257,23 @@
 									<canvas id="job-chart" width="300" height="300" style="display: block; height: 216px; width: 382px;" class="chartjs-render-monitor"></canvas>
 								</div>
 								<hr>
-								<c:if test="${empty searchJobList}"> <%-- list null처리 --%>
+								<c:if test="${empty searchJobList}"> list null처리
 									조회된 직업 데이터가 없습니다.
 								</c:if>
 							</div>
 						</div>
-					</div>
-					<div class="col-xl-4 col-lg-5" style="width:300px; float:left;">
+					</div>--%>
+					
+					<!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">ADMIN</h1>
+                    </div>
+                    
+					<div class="col-xl-4 col-lg-5" style="width:100%; float:left;">
 						<div class="card shadow mb-4" >
 							<!-- Card Header - Dropdown -->
 							<div class="card-header py-3">
-								<h6 class="m-0 font-weight-bold text-primary">검색어</h6>
+								<h6 class="m-0 font-weight-bold text-primary">관리자 계정 리스트</h6>
 							</div>
 							<!-- Card Body -->
 							<div class="card-body">
@@ -264,6 +287,8 @@
 							</div>
 						</div>
 					</div>
+					
+					
                 </div>
                 <!-- /.container-fluid -->
             </div>

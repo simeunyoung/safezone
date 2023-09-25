@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,10 +88,12 @@
             <input type="text" class="form-control" id="tel">
             <label for="tel">연락처</label>
          </div>
-         <div class="form-floating">
-            <input type="text" class="form-control" id="emg_tel">
-            <label for="emg_tel">긴급연락망</label>
-         </div>
+         <c:if test="${statu != 2}">
+	         <div class="form-floating">
+	            <input type="text" class="form-control" id="emg_tel">
+	            <label for="emg_tel">긴급연락망</label>
+	         </div>
+         </c:if>
 
          <button class="w-100 btn btn-lg btn-primary" type="button" onclick="sign()">회원가입</button>
          <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
@@ -100,6 +103,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function sign() {
+        	var statu = ${statu};
             var email = $("#email").val();
             var pw = $("#pw").val();
             var pw2 = $("#pw2").val();
@@ -122,6 +126,7 @@
                 gender: gender, // 선택된 라디오 버튼의 값 사용
                 tel: tel,
                 emg_tel: emg_tel
+                statu: statu
             };
 
             $.ajax({

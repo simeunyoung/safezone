@@ -1,21 +1,14 @@
 package safezone.project.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import safezone.project.component.UserDTO;
 import safezone.project.service.UserService;
 
 @Controller
-@RequestMapping("/cs/*")
+@RequestMapping("/admin/*")
 public class AdminController {
 
 	@Autowired
@@ -26,8 +19,19 @@ public class AdminController {
     	return "admin/admin";
     }
     
-    @RequestMapping("/notice")
+    @RequestMapping("/adminList")
+    public String adminList() {
+    	return "admin/adminList";
+    }
+    
+    @RequestMapping("/adminJoin")
+    public String adminJoin(Model model) {
+    	model.addAttribute("statu", 2);
+    	return "user/sign";
+    }
+    
+    @RequestMapping("/inquiry")
     public String notice() {
-    	return "admin/notice";
+    	return "admin/noticeWrite";
     }
 }
