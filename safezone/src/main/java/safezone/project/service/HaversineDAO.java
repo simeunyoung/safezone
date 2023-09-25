@@ -3,6 +3,9 @@ package safezone.project.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class HaversineDAO {
 
     // 두 지점의 위도와 경도를 이용하여 Haversine 거리를 계산합니다.
@@ -77,17 +80,17 @@ public class HaversineDAO {
         double earthRadius = 6371; // 지구 반지름 (단위: km)
 
         // 최소 및 최대 위도 범위를 계산합니다.
-        double minLatitude = lat - (radiusInKm / earthRadius) * (180 / Math.PI);
-        double maxLatitude = lat + (radiusInKm / earthRadius) * (180 / Math.PI);
+        double minLat = lat - (radiusInKm / earthRadius) * (180 / Math.PI);
+        double maxLat = lat + (radiusInKm / earthRadius) * (180 / Math.PI);
 
         // 최소 및 최대 경도 범위를 계산합니다.
-        double minLongitude = lon - (radiusInKm / earthRadius) * (180 / Math.PI) / Math.cos(Math.toRadians(lat));
-        double maxLongitude = lon + (radiusInKm / earthRadius) * (180 / Math.PI) / Math.cos(Math.toRadians(lat));
+        double minLon = lon - (radiusInKm / earthRadius) * (180 / Math.PI) / Math.cos(lat * Math.PI / 180);
+        double maxLon = lon + (radiusInKm / earthRadius) * (180 / Math.PI) / Math.cos(lat * Math.PI / 180);
 
-        bounds.add(minLatitude);
-        bounds.add(maxLatitude);
-        bounds.add(minLongitude);
-        bounds.add(maxLongitude);
+        bounds.add(minLat);
+        bounds.add(maxLat);
+        bounds.add(minLon);
+        bounds.add(maxLon);
 
         return bounds;
     }

@@ -28,5 +28,13 @@
 	<context:component-scan base-package="safezone.project.repository" />
 	
 	
+	<!-- emgBell key -->
+   	<beans:bean id="bellKey" class="java.lang.String">
+      <beans:constructor-arg value="1EBS02YC-1EBS-1EBS-1EBS-1EBS02YCGD"/>
+	</beans:bean>
 	
+	<!-- api key -->
+	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	    <beans:property name="locations" value="classpath:/apikeys.properties" />
+	</beans:bean>
 </beans:beans>
