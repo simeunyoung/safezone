@@ -12,15 +12,14 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-	<!-- 카카오맵API -->
+<!-- 카카오맵API -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f4352b5c75fa4dee61f430ab3f1ff6f4&libraries=services,clusterer"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<!-- Custom styles for this template -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
 	rel="stylesheet">
-	<script src="https://kit.fontawesome.com/f507061817.js""></script>
+<script src="https://kit.fontawesome.com/f507061817.js"></script>
 <link href="/safezone/resources/css/style.css" rel="stylesheet">
    
 </head>
@@ -119,51 +118,55 @@
            $(this).text(maskedEmail);
        });
        
-    // 모든 버튼 그룹을 선택합니다.
+    // 추천 관련 함수
+    	// 페이지 로드시 실행
        const buttonGroups = document.querySelectorAll('.apply-button');
-
-       // 각 버튼 그룹에 대한 이벤트를 설정합니다.
+    
+       const recmdList = ${recmdList}; 
+       const recmdApplyNums = recmdList.map(item => item.apply_num);
+       
        buttonGroups.forEach(buttonGroup => {
-         // "추천하기" 버튼을 선택합니다.
          const recommendButton = buttonGroup.querySelector('.apply-push');
-         // "추천 취소" 버튼을 선택합니다.
          const cancelRecommendButton = buttonGroup.querySelector('.apply-cencle');
-
-         // "추천하기" 버튼을 클릭했을 때 실행되는 함수
+         
+         // 해당 버튼 그룹의 apply_num
+         const applyNum = parseInt(buttonGroup.parentElement.querySelector('td:first-child').textContent.trim());
+         
+         // recmdApplyNums 배열에 applyNum이 포함되어 있는지 확인
+         if (recmdApplyNums.includes(applyNum)) {
+        	 
+             // applyNum이 recmdApplyNums 배열에 포함된 경우, 추천 취소 버튼 활성화
+             recommendButton.style.display = 'none';
+             cancelRecommendButton.style.display = 'block';
+         }
+       
          recommendButton.addEventListener('click', function() {
-           // "추천하기" 버튼을 숨깁니다.
            recommendButton.style.display = 'none';
-           // "추천 취소" 버튼을 보여줍니다.
            cancelRecommendButton.style.display = 'block';
          });
 
-         // "추천 취소" 버튼을 클릭했을 때 실행되는 함수
          cancelRecommendButton.addEventListener('click', function() {
-           // "추천 취소" 버튼을 숨깁니다.
            cancelRecommendButton.style.display = 'none';
-           // "추천하기" 버튼을 보여줍니다.
            recommendButton.style.display = 'block';
          });
        });
        
+       // 버튼 클릭 시 적용
        function recommend(button) {
-    	   const applyNum = getApplyNumFromTableRow(button);
-
-    	   // applyNum을 사용하여 DB에서 해당 항목의 추천 수를 +1 업데이트하고 Ajax 요청을 보냅니다.
+    	   const applyNum = getApplyNumFromTableRow(button);    	  
     	   $.ajax({
-    	     url: '/applyRecommed', // 컨트롤러의 URL로 변경하세요.
+    	     url: '/safezone/applyRecommend',
     	     type: 'POST',
     	     data: { applyNum: applyNum },
     	     success: function (data) {
-    	       // Ajax 요청이 성공했을 때 수행할 작업을 여기에 추가하세요.
-    	       // 예: 추천 수 업데이트, 버튼 상태 변경 등
-    	       const recommendCountElement = button.closest('tr').querySelector('.recommend-count');
-    	       const newRecommendCount = parseInt(recommendCountElement.textContent) + 1;
-    	       recommendCountElement.textContent = newRecommendCount;
-    	       
-    	       // 추천하기 버튼을 숨기고 추천 취소 버튼을 보여줍니다.
+    	       // 추천취소 활성화
     	       button.style.display = 'none';
     	       button.parentElement.querySelector('.apply-cencle').style.display = 'block';
+    	
+    	       // recommend 업데이트
+               const tableRow = button.closest('tr');
+               const recommendTd = tableRow.querySelector('td:nth-child(6)'); 
+               recommendTd.textContent = data; 
     	     },
     	     error: function (error) {
     	       console.error('추천하기 Ajax 요청 실패:', error);
@@ -174,21 +177,19 @@
     	 function cancelRecommend(button) {
     	   const applyNum = getApplyNumFromTableRow(button);
 
-    	   // applyNum을 사용하여 DB에서 해당 항목의 추천 수를 -1 업데이트하고 Ajax 요청을 보냅니다.
     	   $.ajax({
-    	     url: '/your-controller-url/cancelRecommend', // 컨트롤러의 URL로 변경하세요.
+    	     url: '/safezone/cancelRecommend', 
     	     type: 'POST',
     	     data: { applyNum: applyNum },
     	     success: function (data) {
-    	       // Ajax 요청이 성공했을 때 수행할 작업을 여기에 추가하세요.
-    	       // 예: 추천 수 업데이트, 버튼 상태 변경 등
-    	       const recommendCountElement = button.closest('tr').querySelector('.recommend-count');
-    	       const newRecommendCount = parseInt(recommendCountElement.textContent) - 1;
-    	       recommendCountElement.textContent = newRecommendCount;
-
-    	       // 추천 취소 버튼을 숨기고 추천하기 버튼을 보여줍니다.
+    	       // 추천하기 활성화
     	       button.style.display = 'none';
     	       button.parentElement.querySelector('.apply-push').style.display = 'block';
+    	       
+    	       // recommend 업데이트
+               const tableRow = button.closest('tr');
+               const recommendTd = tableRow.querySelector('td:nth-child(6)'); 
+               recommendTd.textContent = data; 
     	     },
     	     error: function (error) {
     	       console.error('추천 취소 Ajax 요청 실패:', error);
@@ -196,24 +197,13 @@
     	   });
     	 }
 
+    	 // 클릭한 버튼에 해당하는 글번호 추출
     	 function getApplyNumFromTableRow(button) {
     	   const tableRow = button.closest('tr');
     	   const applyNumElement = tableRow.querySelector('td:first-child');
     	   return parseInt(applyNumElement.textContent.trim());
     	 }
-
-
-  
-    	   
+ 
     </script>
-</body>
-</html>
-
-
-
-
-
-
-
 </body>
 </html>

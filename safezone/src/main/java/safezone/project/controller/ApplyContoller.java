@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import safezone.project.component.ApplyDTO;
+import safezone.project.component.ApplyRecommendDTO;
 import safezone.project.service.AlarmService;
 import safezone.project.service.ApplyService;
 
@@ -75,7 +81,8 @@ public class ApplyContoller {
 	
 	@RequestMapping("applyList")
 	public String applyList(ApplyDTO dto, Model model,@RequestParam(name = "page", defaultValue = "1") int page,
-            @RequestParam(name = "perPage", defaultValue = "10") int perPage) {
+            @RequestParam(name = "perPage", defaultValue = "10") int perPage,
+            HttpSession session) {
 		
 		// 전체 목록 가져오기
 	    List<ApplyDTO> allList = service.getApplyList();
@@ -102,12 +109,37 @@ public class ApplyContoller {
 	    model.addAttribute("totalPages", totalPages);
 	    model.addAttribute("currentPage", page); // 현재 페이지 정보 추가
 	    
+	    
+	    // 추천
+	    String memId = (String)session.getAttribute("memId");
+		List<ApplyRecommendDTO> recmdList = service.getApplyRecmdList(memId);
+		 // recmdList를 JSON 문자열로 변환합니다.
+	    ObjectMapper objectMapper = new ObjectMapper();
+	    try {
+			String recmdListJSON = objectMapper.writeValueAsString(recmdList);
+			model.addAttribute("recmdList", recmdListJSON);
+		} catch (JsonProcessingException e) {
+		
+			e.printStackTrace();
+		}
+		
 		return "/apply/applyList";
 	}
 	
 	@RequestMapping("applyRecommend")
-	public @ResponseBody String applyRecommend() {
-		return "";
+	public @ResponseBody int applyRecommend(Integer applyNum, HttpSession session) {
+		String memId = (String)session.getAttribute("memId");
+		service.applyRecmdInsert(applyNum,memId);
+		int recommend = service.getRecommend(applyNum);
+		return recommend;
+	}
+	
+	@RequestMapping("cancelRecommend")
+	public @ResponseBody int cancelRecommend(Integer applyNum, HttpSession session) {
+		String memId = (String)session.getAttribute("memId");
+		service.applyRecmdDelete(applyNum,memId);
+		int recommend = service.getRecommend(applyNum);
+		return recommend;
 	}
 
 }

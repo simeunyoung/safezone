@@ -10,10 +10,34 @@
 </insert>
 
 <select id="getApplyList" resultType="ApplyDTO">
-	select * from safezone_apply
+	SELECT * FROM safezone_apply
 </select>
 
 <select id="getApplyDate" resultType="String">
-	select created_at from safezone_apply where email = #{email}
+	SELECT created_at FROM safezone_apply WHERE email = #{email}
+</select>
+
+<insert id="applyRecmdInsert">
+    INSERT INTO safezone_applyrecommend VALUES (safezone_applyrecommend_seq.NEXTVAL, #{applyNum}, #{memId}, sysdate)
+</insert>
+
+<delete id="applyRecmdDelete">
+    DELETE safezone_applyrecommend WHERE email = #{memId} AND apply_num = #{applyNum}
+</delete>
+
+<select id="getApplyRecmdList" resultType="ApplyRecommendDTO">
+	SELECT apply_num FROM safezone_applyrecommend WHERE email = #{memId}
+</select>
+
+<update id="applyRecmdUp">
+	UPDATE safezone_apply SET recommend =  recommend + 1 WHERE apply_num = #{applyNum}  
+</update>
+
+<update id="applyRecmdDown">
+	UPDATE safezone_apply SET recommend =  recommend - 1 WHERE apply_num = #{applyNum}  
+</update>
+
+<select id="getRecommend" resultType="Integer">
+	SELECT recommend FROM safezone_apply WHERE apply_num = #{applyNum}
 </select>
 </mapper>
