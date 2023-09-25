@@ -75,6 +75,7 @@
 						<div class="d-flex">
 							<div class="menu-btn"><i class="fa-solid fa-bars fa-lg" style="color: #ffffff;"></i></div>
 							<div class="ms-3">로고</div>
+							<div><a href="/safezone/user/login">로그인</a></div>
 						</div>
 						<div>현 지도 내장소검색</div>
 					</div>
