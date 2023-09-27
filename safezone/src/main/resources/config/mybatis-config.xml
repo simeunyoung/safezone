@@ -7,5 +7,7 @@
   	<typeAliases>
   		<typeAlias type="safezone.project.component.SafeHouseDTO" alias="SafeHouseDTO" />
   		<typeAlias type="safezone.project.component.SafetyZoneDTO" alias="SafetyZoneDTO" />
+  		<typeAlias type="safezone.project.component.ApplyDTO" alias="ApplyDTO" />
+  		<typeAlias type="safezone.project.component.ApplyRecommendDTO" alias="ApplyRecommendDTO" />
   	</typeAliases>
   </configuration>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-Mapper.dtd">
+  
+<mapper namespace="safezone.project.mapper.ApplyMapper">
+
+<insert id="applyInsert">
+    INSERT INTO safezone_apply (apply_num, email, address, category, created_at) VALUES (safezone_apply_seq.NEXTVAL, #{email}, #{address}, #{category}, sysdate)
+</insert>
+
+<select id="getApplyList" resultType="ApplyDTO">
+	SELECT * FROM safezone_apply
+</select>
+
+<select id="getApplyDate" resultType="String">
+	SELECT created_at FROM safezone_apply WHERE email = #{email}
+</select>
+
+<insert id="applyRecmdInsert">
+    INSERT INTO safezone_applyrecommend VALUES (safezone_applyrecommend_seq.NEXTVAL, #{applyNum}, #{memId}, sysdate)
+</insert>
+
+<delete id="applyRecmdDelete">
+    DELETE safezone_applyrecommend WHERE email = #{memId} AND apply_num = #{applyNum}
+</delete>
+
+<select id="getApplyRecmdList" resultType="ApplyRecommendDTO">
+	SELECT apply_num FROM safezone_applyrecommend WHERE email = #{memId}
+</select>
+
+<update id="applyRecmdUp">
+	UPDATE safezone_apply SET recommend =  recommend + 1 WHERE apply_num = #{applyNum}  
+</update>
+
+<update id="applyRecmdDown">
+	UPDATE safezone_apply SET recommend =  recommend - 1 WHERE apply_num = #{applyNum}  
+</update>
+
+<select id="getRecommend" resultType="Integer">
+	SELECT recommend FROM safezone_apply WHERE apply_num = #{applyNum}
+</select>
+</mapper>
